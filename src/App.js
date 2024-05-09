@@ -4,7 +4,7 @@ import styles from './style/App.module.css';
 
 function App() {
 
-  const [data, setData] = useState([])
+  const [musics, setMusics] = useState([]);
 
   const music = async () =>{
     const url = 'https://spotify23.p.rapidapi.com/search/?q=%3CREQUIRED%3E&type=multi&offset=0&limit=10&numberOfTopResults=5';
@@ -19,19 +19,19 @@ const options = {
 try {
 	const response = await fetch(url, options);
 	const result = await response.json();
-  // setData(result)
+  setMusics(result.playlists.items)
   console.log(result)
-  // alert(JSON.stringify(result))
- 
+  console.log(result.albums.items)
+
 } catch (error) {
 	console.error(error);
 }
   }
 
 
-//   useEffect(()=>{
-//  music();
-//   }, [])
+  useEffect(()=>{
+ music();
+  }, [])
   return (
 
     <div className={styles.div}> 
@@ -49,7 +49,23 @@ try {
 
       <div className={styles.musicBox}>
          <section className={styles.results}>
-          <p>result</p>
+          
+               
+                     {
+                      musics.map((item, i)=>(
+                      <ul>
+                         <li>{item.data.owner.name}</li>
+                      </ul>
+                      
+                      ))
+                     }     
+                            
+                                
+                              
+
+              
+
+            
          </section>
          <section className={styles.save}>
           <p>save</p>
