@@ -1,0 +1,31 @@
+.search-bar {
+    width: 15rem;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-bar input[type='text'] {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 16px;
+    background-color: #22224455;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid #fff;
+}
+
+.search-bar input[type='text']::placeholder {
+    color: #fff;
+}
+
+.search-bar input[type='submit'] {
+    background-color: #030360;
+}
+
+.search-bar input[type='submit']:hover {
+    background-color: #fff;
+}

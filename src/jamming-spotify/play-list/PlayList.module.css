@@ -1,0 +1,18 @@
+.saveBtnCenter {
+    text-align: center;
+}
+
+.saveButton {
+    padding: 15px 50px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    font-size: 1.1rem; 
+}
+
+.saveButton:hover {
+    background-color: blueviolet;
+    font-size: 1.3rem;
+}

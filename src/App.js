@@ -1,82 +1,119 @@
-import React , {useState, useEffect}from "react";
+import React , {useState}from "react";
 import styles from './style/App.module.css';
-// import './style.css';
+import SearchBar from './jamming-spotify/search-bar/SearchBar';
+import SearchResult from "./jamming-spotify/search-result/SearchResult";
+import PlayList from './jamming-spotify/play-list/PlayList';
+// import TopLevel from './githubjamming/App/App'
+import {Spotify} from './uri/Spotify';
+
 
 function App() {
 
-  const [musics, setMusics] = useState([]);
+  const [searchResult, setSearchResult] = useState([
+    {
+    name:'The track name',
+    artist: 'The track artist',
+    album: 'The track album1',
+    id: 1
+    },
+    {
+    name:'The track name',
+    artist: 'The track artist',
+    album: 'The track album',
+    id: 4
+    },
+    {
+    name:'The track name',
+    artist: 'The track artist',
+    album: 'The track album',
+    id: 5
+    },
+    {
+    name:'the track name',
+    artist: 'track artist',
+    album: 'track album',
+    id: 2
+    },
+    
+]);
 
-  const music = async () =>{
-    const url = 'https://spotify23.p.rapidapi.com/search/?q=%3CREQUIRED%3E&type=multi&offset=0&limit=10&numberOfTopResults=5';
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': '702e531af8mshe7690baa6521f69p19bfaejsn75b4ef9a7b5c',
-		'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
-	}
-};
+const [playListTrack, setplayListTrack]= useState([
+    {
+      name:'the trackplayList name',
+      artist: 'Ttrack trackplayList artist',
+      album: 'The track trackplayList album',
+      id: 8
+    },
+    {
+      name:'The track name',
+      artist: 'The track artist',
+      album: 'The track album1',
+      id: 7
+      },
 
-try {
-	const response = await fetch(url, options);
-	const result = await response.json();
-  setMusics(result.playlists.items)
-  console.log(result)
-  console.log(result.albums.items)
+    // {
+    //   name:'the trackplayList name',
+    //   artist: 'Ttrack trackplayList artist',
+    //   album: 'The track trackplayList album',
+    //   id: 4
+    // },
 
-} catch (error) {
-	console.error(error);
+    {
+      name:'the trackplayList name',
+      artist: 'Ttrack trackplayList artist',
+      album: 'The track trackplayList album23',
+      id: 11
+    }
+
+
+ 
+])
+
+function addTrack(track){
+  const trackIsExist = playListTrack.find(({id})=> id === track.id);
+  const newTrack = playListTrack.concat(track);
+
+  if(trackIsExist){
+    alert('Track Already Exist');
+    }else{
+     setplayListTrack( newTrack )
+    }
 }
-  }
+
+function removePlayTrack(keyid) {
+  setplayListTrack(()=>(
+    playListTrack.filter(({id})=>id !== keyid)
+  ))
+
+}
+
+const search = (term) =>{
+  Spotify.search(term).then(result=>{
+    console.log(result)
+    // if(result.ok){
+    //   alert(result)
+    // }else{
+    //   alert('error')
+    // }
+  })
+  
+}
 
 
-  useEffect(()=>{
- music();
-  }, [])
+
   return (
 
+    <div >
+        <SearchBar onSearch={search}/>
     <div className={styles.div}> 
-      <div className={styles.searchBox}>
-        <h1 className={styles.h1}>Jammming Spofity</h1>
-        <form>
-          <label htmlFor="searchMusic" className={styles.searchTitle}>Search Music</label><br />
-          <input type="search" name="search"  className={styles.searchForm}/>
-          <br/>
-          <br/>
-          <input type="submit" value='Search' className={styles.submit} />
-        </form>
 
-      </div>
-
-      <div className={styles.musicBox}>
-         <section className={styles.results}>
-          
-               
-                     {
-                      musics.map((item, i)=>(
-                      <ul>
-                         <li>{item.data.owner.name}</li>
-                      </ul>
-                      
-                      ))
-                     }     
-                            
-                                
-                              
-
-              
-
-            
-         </section>
-         <section className={styles.save}>
-          <p>save</p>
-         </section>
-      </div>
-
-
-    
-    
+      <SearchResult result={searchResult} addOn={addTrack}/> 
+      <PlayList playListTrack={playListTrack} remove={removePlayTrack}/> 
     </div>
-  )
+    </div> 
+
+
+)
   
 }
 

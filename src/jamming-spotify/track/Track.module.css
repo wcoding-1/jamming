@@ -1,0 +1,39 @@
+
+/* .results {
+    display:fl;
+    justify-content:space-around;
+    margin-top: 30px;
+   
+    gap: 30px;
+    margin: 40px;
+    letter-spacing: 3px;
+} */
+
+.results, .save {
+    border: 1px solid black;
+    padding: 20px;
+    flex: 0 0 500px;
+}
+
+.artist {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular';
+    color:white
+}
+
+.addBtn {
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    background-color: darkblue;
+    color: white;
+    height: 20px;
+    align-self: center;
+
+}
+/* .addBtn:hover {
+ 
+} */
+
+
